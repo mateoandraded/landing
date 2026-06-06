@@ -54,10 +54,10 @@ const renderProducts = () => {
             </div>
           </div>
         `;
-        html = html.replaceAll("[IMGURL]", product.IMGURL);
-        html = html.replaceAll("[TITLE]", product.TITLE.substring(0, 30));
-        html = html.replaceAll("[PRICE]", product.PRICE);
-        html = html.replaceAll("[CAT]", product.CATEGORY_ID);
+        html = html.replaceAll("[IMGURL]", product.imgUrl);
+        html = html.replaceAll("[TITLE]", product.title.substring(0, 30));
+        html = html.replaceAll("[PRICE]", product.price);
+        html = html.replaceAll("[CAT]", product.category_id);
         container.innerHTML += html;
       });
     } else {
