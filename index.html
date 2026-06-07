@@ -13,617 +13,587 @@
       theme: {
         extend: {
           colors: {
-            primary: '#7C3AED',
-            primaryDark: '#6D28D9',
-            base100: '#1e1b2e',
-            base200: '#16131f',
-            base300: '#0f0d17',
-            baseContent: '#e2e8f0',
-            baseMuted: '#94a3b8',
+            primary:     '#7C3AED',
+            primaryHover:'#6D28D9',
           },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'] },
         }
       }
     }
   </script>
   <style>
-    * { font-family: 'Inter', system-ui, sans-serif; }
-    body { background-color: #16131f; color: #e2e8f0; }
+    *   { font-family:'Inter',system-ui,sans-serif; box-sizing:border-box; }
+    body{ background:#16131f; color:#e2e8f0; margin:0; }
 
-    /* Navbar */
-    .nav-link { color: #94a3b8; transition: color 0.2s; }
-    .nav-link:hover { color: #e2e8f0; }
-    .nav-active { color: #e2e8f0; }
+    /* ── Navbar ── */
+    #navbar{ background:rgba(22,19,31,0.95); border-bottom:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(12px); position:fixed; top:0; left:0; right:0; z-index:50; }
+    .nav-inner{ max-width:1280px; margin:0 auto; padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .nav-logo{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:1.2rem; color:#fff; text-decoration:none; }
+    .nav-links{ display:flex; align-items:center; gap:1.75rem; }
+    .nav-links a{ color:#94a3b8; font-size:.9rem; font-weight:500; text-decoration:none; transition:color .2s; }
+    .nav-links a:hover{ color:#e2e8f0; }
+    .btn-book{ background:linear-gradient(135deg,#7C3AED,#6D28D9); color:#fff; padding:.55rem 1.4rem; border-radius:.5rem; font-weight:600; font-size:.88rem; text-decoration:none; transition:opacity .2s; }
+    .btn-book:hover{ opacity:.88; }
+    #hamburger{ display:none; background:none; border:none; cursor:pointer; color:#fff; padding:.4rem; }
+    #mobile-nav{ display:none; flex-direction:column; gap:1rem; padding:1rem 2rem; border-top:1px solid rgba(255,255,255,0.08); background:#0f0d17; }
+    #mobile-nav a{ color:#94a3b8; font-size:.9rem; text-decoration:none; }
+    #mobile-nav.open{ display:flex; }
+    @media(max-width:768px){ .nav-links,.btn-book{ display:none; } #hamburger{ display:block; } }
 
-    /* Mobile menu */
-    #mobile-menu { display: none; }
-    #mobile-menu.open { display: flex; }
+    /* ── Buttons ── */
+    .btn-primary{ display:inline-flex; align-items:center; gap:.5rem; background:linear-gradient(135deg,#7C3AED,#6D28D9); color:#fff; padding:.75rem 1.75rem; border-radius:.5rem; font-weight:600; font-size:.9rem; text-decoration:none; border:none; cursor:pointer; transition:opacity .2s,transform .2s; }
+    .btn-primary:hover{ opacity:.88; transform:translateY(-1px); }
+    .btn-outline-w{ display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(255,255,255,0.2); color:#e2e8f0; padding:.75rem 1.75rem; border-radius:.5rem; font-weight:600; font-size:.9rem; text-decoration:none; transition:border-color .2s,color .2s; }
+    .btn-outline-w:hover{ border-color:#7C3AED; color:#a78bfa; }
 
-    /* Hero gradient background */
-    .hero-bg {
-      background-image: url('comedor-exterior.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-    .hero-overlay {
-      background: linear-gradient(to bottom, rgba(22,19,31,0.85) 0%, rgba(22,19,31,0.7) 50%, rgba(22,19,31,1) 100%);
-    }
+    /* ── Section wrappers ── */
+    .section-light{ background:#1e1b2e; }
+    .section-dark { background:#16131f; }
+    .inner{ max-width:1280px; margin:0 auto; padding:0 2rem; }
 
-    /* Cards */
-    .card { background: #1e1b2e; border: 1px solid rgba(255,255,255,0.08); border-radius: 1rem; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
-    .card:hover { border-color: #7C3AED; transform: translateY(-4px); }
+    /* ── Hero ── */
+    #hero{ padding-top:64px; background:#16131f; }
+    .hero-top{ display:flex; flex-direction:column; align-items:center; gap:1.5rem; text-align:center; padding:5rem 2rem 3rem; max-width:1280px; margin:0 auto; }
+    .badge-pill{ display:inline-flex; align-items:center; gap:.5rem; background:rgba(124,58,237,.15); border:1px solid rgba(124,58,237,.3); color:#a78bfa; padding:.3rem .9rem; border-radius:999px; font-size:.78rem; font-weight:500; }
+    .pulse{ width:8px; height:8px; border-radius:50%; background:#a78bfa; animation:pulse 1.5s infinite; }
+    @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.5; transform:scale(1.3); } }
+    .hero-title{ font-size:clamp(2.4rem,6vw,4.5rem); font-weight:800; line-height:1.1; color:#fff; }
+    .hero-title span{ background:linear-gradient(135deg,#a78bfa,#7C3AED); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-desc{ color:#94a3b8; font-size:1.1rem; max-width:640px; line-height:1.7; }
+    .hero-btns{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
 
-    /* Btn primary */
-    .btn-primary { background: linear-gradient(135deg, #7C3AED, #6D28D9); color: white; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.9rem; transition: opacity 0.2s, transform 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn-outline { border: 1px solid rgba(255,255,255,0.2); color: #e2e8f0; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.9rem; transition: border-color 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
-    .btn-outline:hover { border-color: #7C3AED; color: #7C3AED; }
+    /* Hero image strip — igual que plantilla original */
+    .hero-strip{ width:100%; overflow:hidden; position:relative; }
+    .hero-strip img{ width:100%; height:320px; object-fit:cover; object-position:center top; display:block; }
+    .hero-strip::after{ content:''; position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(to bottom,transparent,#16131f); }
 
-    /* Badge */
-    .badge { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); color: #a78bfa; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.4rem; }
+    /* ── About / Stats ── */
+    .about-wrap{ padding:5rem 0; }
+    .about-header{ text-align:center; display:flex; flex-direction:column; align-items:center; gap:1rem; margin-bottom:3.5rem; }
+    .section-title{ font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:700; color:#fff; }
+    .section-sub{ color:#94a3b8; font-size:1.05rem; max-width:680px; text-align:center; line-height:1.7; }
+    .about-img-wrap{ position:relative; margin-bottom:6rem; }
+    .about-img-wrap img{ width:100%; height:500px; object-fit:cover; border-radius:1rem; display:block; }
+    .stats-box{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; background:#1e1b2e; border:1px solid rgba(255,255,255,0.08); border-radius:1rem; padding:2rem; }
+    @media(max-width:900px){ .stats-box{ grid-template-columns:repeat(2,1fr); } .about-img-wrap{ margin-bottom:1.5rem; } }
+    @media(max-width:500px){ .stats-box{ grid-template-columns:1fr; } }
+    .stat-item{ display:flex; flex-direction:column; align-items:center; gap:1rem; text-align:center; }
+    .stat-icon{ font-size:2rem; }
+    .stat-num{ font-size:1.8rem; font-weight:700; color:#7C3AED; }
+    .stat-label{ color:#94a3b8; font-size:.85rem; }
 
-    /* Stats */
-    .stat-card { background: #1e1b2e; border: 1px solid rgba(255,255,255,0.08); border-radius: 1rem; padding: 1.5rem; text-align: center; }
+    /* ── Services / Blog cards ── */
+    .services-wrap{ padding:5rem 0; }
+    .card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    @media(max-width:900px){ .card-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:600px){ .card-grid{ grid-template-columns:1fr; } }
+    .blog-card{ background:#1e1b2e; border:1px solid rgba(255,255,255,0.08); border-radius:1rem; overflow:hidden; transition:border-color .3s,transform .3s; display:flex; flex-direction:column; }
+    .blog-card:hover{ border-color:#7C3AED; transform:translateY(-4px); }
+    .blog-card figure{ margin:0; overflow:hidden; }
+    .blog-card figure img{ width:100%; height:220px; object-fit:cover; display:block; transition:transform .4s; }
+    .blog-card:hover figure img{ transform:scale(1.04); }
+    .card-body{ padding:1.5rem; display:flex; flex-direction:column; gap:.75rem; flex:1; }
+    .card-title{ font-size:1.15rem; font-weight:600; color:#fff; }
+    .card-desc{ color:#94a3b8; font-size:.9rem; line-height:1.6; flex:1; }
+    .card-actions{ margin-top:.5rem; }
 
-    /* Section */
-    .section-title { font-size: 2rem; font-weight: 700; color: #e2e8f0; }
-    .section-sub { color: #94a3b8; font-size: 1.1rem; margin-top: 0.75rem; }
+    /* ── Reviews carousel ── */
+    .reviews-wrap{ padding:5rem 0; }
+    .reviews-inner{ display:flex; gap:4rem; align-items:center; }
+    @media(max-width:900px){ .reviews-inner{ flex-direction:column; } }
+    .reviews-left{ flex-shrink:0; width:280px; display:flex; flex-direction:column; gap:1rem; }
+    @media(max-width:900px){ .reviews-left{ width:100%; } }
+    .carousel-wrap{ flex:1; overflow:hidden; }
+    .carousel-track{ display:flex; gap:1.5rem; transition:transform .4s ease; }
+    .review-card{ flex-shrink:0; width:280px; background:#1e1b2e; border:1px solid rgba(255,255,255,0.08); border-radius:1rem; padding:1.5rem; display:flex; flex-direction:column; gap:1rem; transition:border-color .3s; }
+    .review-card:hover{ border-color:#7C3AED; }
+    .reviewer{ display:flex; align-items:center; gap:.75rem; }
+    .reviewer img{ width:40px; height:40px; border-radius:50%; object-fit:cover; }
+    .reviewer-name{ color:#fff; font-size:.9rem; font-weight:500; }
+    .reviewer-role{ color:#94a3b8; font-size:.75rem; }
+    .stars{ color:#FBBF24; font-size:.9rem; }
+    .review-text{ color:#94a3b8; font-size:.85rem; line-height:1.6; }
+    .carousel-btns{ display:flex; gap:.75rem; }
+    .cbtn{ width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,0.2); background:none; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s,border-color .2s; }
+    .cbtn:hover,.cbtn.active{ background:#7C3AED; border-color:#7C3AED; }
 
-    /* Input */
-    .input-field { width: 100%; background: #16131f; border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
-    .input-field:focus { border-color: #7C3AED; }
-    .input-field::placeholder { color: #475569; }
-    .input-label { display: block; color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.4rem; font-weight: 500; }
+    /* ── CTA banner ── */
+    .cta-wrap{ padding:4rem 0; }
+    .cta-box{ background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(109,40,217,.12)); border:1px solid rgba(124,58,237,.3); border-radius:1.5rem; padding:3rem 4rem; display:flex; justify-content:space-between; align-items:center; gap:2rem; overflow:hidden; position:relative; }
+    @media(max-width:768px){ .cta-box{ flex-direction:column; padding:2rem; } }
+    .cta-text{ max-width:520px; display:flex; flex-direction:column; gap:1rem; }
+    .cta-title{ font-size:clamp(1.3rem,3vw,1.9rem); font-weight:700; color:#fff; }
+    .cta-desc{ color:#94a3b8; font-size:.95rem; line-height:1.7; }
+    .cta-img{ width:320px; height:200px; object-fit:cover; object-position:center top; border-radius:1rem; flex-shrink:0; }
+    @media(max-width:768px){ .cta-img{ display:none; } }
 
-    /* Reveal */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* ── Team ── */
+    .team-wrap{ padding:5rem 0; }
+    .team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
+    @media(max-width:900px){ .team-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:500px){ .team-grid{ grid-template-columns:1fr; } }
+    .team-card{ background:#16131f; border:1px solid rgba(255,255,255,0.08); border-radius:1rem; overflow:hidden; transition:border-color .3s; }
+    .team-card:hover{ border-color:#7C3AED; }
+    .team-photo{ width:100%; height:220px; object-fit:cover; object-position:center top; display:block; background:#1e1b2e; }
+    .team-body{ padding:1.25rem; display:flex; flex-direction:column; gap:.5rem; }
+    .team-name{ color:#fff; font-weight:600; font-size:1rem; }
+    .team-divider{ height:1px; background:rgba(255,255,255,0.08); margin:.25rem 0; }
+    .team-role{ color:#7C3AED; font-size:.85rem; font-weight:500; }
+    .team-desc{ color:#94a3b8; font-size:.8rem; line-height:1.5; }
 
-    /* Divider */
-    .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 1rem 0; }
+    /* ── Contact ── */
+    .contact-wrap{ padding:5rem 0; }
+    .contact-card{ background:#1e1b2e; border:1px solid rgba(255,255,255,0.08); border-radius:1rem; padding:2.5rem; display:grid; grid-template-columns:1fr .65fr; gap:2.5rem; }
+    @media(max-width:900px){ .contact-card{ grid-template-columns:1fr; } }
+    .form-title{ font-size:1.5rem; font-weight:700; color:#fff; margin-bottom:1.5rem; }
+    .form-row{ display:flex; gap:1.25rem; margin-bottom:1.25rem; }
+    @media(max-width:600px){ .form-row{ flex-direction:column; } }
+    .form-group{ display:flex; flex-direction:column; gap:.4rem; flex:1; }
+    .form-label{ color:#94a3b8; font-size:.82rem; font-weight:500; }
+    .form-input{ background:#16131f; border:1px solid rgba(255,255,255,0.1); border-radius:.75rem; padding:.85rem 1rem; color:#e2e8f0; font-size:.9rem; outline:none; transition:border-color .2s; width:100%; }
+    .form-input:focus{ border-color:#7C3AED; }
+    .form-input::placeholder{ color:#475569; }
+    .info-box{ background:#16131f; border:1px solid rgba(255,255,255,0.08); border-radius:1rem; padding:1.5rem; text-align:center; margin-bottom:1rem; }
+    .info-box h3{ color:#fff; font-weight:600; margin-bottom:.75rem; font-size:1rem; }
+    .info-box p{ color:#94a3b8; font-size:.85rem; line-height:1.6; }
+    .hours-text{ text-align:center; color:#94a3b8; font-size:.9rem; }
+    .hours-text span{ color:#7C3AED; font-weight:600; }
 
-    /* Carousel simple */
-    .carousel-track { display: flex; gap: 1.5rem; transition: transform 0.4s ease; }
-    .carousel-wrapper { overflow: hidden; }
+    /* ── FAQs ── */
+    .faqs-wrap{ padding:5rem 0; }
+    .faq-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    @media(max-width:900px){ .faq-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:600px){ .faq-grid{ grid-template-columns:1fr; } }
+    .faq-item{ background:#1e1b2e; border:1px solid rgba(255,255,255,0.08); border-radius:1rem; padding:1.75rem; text-align:center; transition:background .2s,box-shadow .2s; }
+    .faq-item:hover{ background:#221e33; box-shadow:0 0 0 1px #7C3AED; }
+    .faq-q{ color:#fff; font-weight:600; font-size:1.05rem; margin-bottom:.75rem; }
+    .faq-a{ color:#94a3b8; font-size:.88rem; line-height:1.65; }
+
+    /* ── Footer ── */
+    footer{ background:#16131f; border-top:1px solid rgba(255,255,255,0.08); }
+    .footer-main{ max-width:1280px; margin:0 auto; padding:2rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; }
+    .footer-logo{ display:flex; align-items:center; gap:.6rem; font-weight:700; font-size:1.1rem; color:#fff; text-decoration:none; }
+    .footer-links{ display:flex; gap:1.5rem; }
+    .footer-links a{ color:#94a3b8; font-size:.88rem; text-decoration:none; transition:color .2s; }
+    .footer-links a:hover{ color:#7C3AED; }
+    .footer-socials{ display:flex; gap:1rem; font-size:1.2rem; }
+    .footer-bottom{ border-top:1px solid rgba(255,255,255,0.06); padding:1.25rem 2rem; text-align:center; color:#475569; font-size:.82rem; max-width:1280px; margin:0 auto; }
+    .footer-bottom a{ color:#7C3AED; text-decoration:none; }
+
+    /* ── Reveal ── */
+    .reveal{ opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s ease; }
+    .reveal.visible{ opacity:1; transform:translateY(0); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar{ width:6px; } ::-webkit-scrollbar-track{ background:#16131f; } ::-webkit-scrollbar-thumb{ background:#7C3AED; border-radius:3px; }
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════════ NAVBAR ══════════════════════ -->
-  <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-base200/90 backdrop-blur-md" style="background-color:rgba(22,19,31,0.92)">
-    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-
-      <!-- Logo -->
-      <a href="#inicio" class="flex items-center gap-3 font-bold text-xl text-white">
-        <span class="text-primary text-2xl">🍊</span>
-        Frutanga
-      </a>
-
-      <!-- Desktop links -->
-      <div class="hidden lg:flex items-center gap-7 font-medium">
-        <a href="#inicio"   class="nav-link">Inicio</a>
-        <a href="#nosotros" class="nav-link">Nosotros</a>
-        <a href="#servicios" class="nav-link">Servicios</a>
-        <a href="#equipo"   class="nav-link">Equipo</a>
-        <a href="#faqs"     class="nav-link">FAQs</a>
-      </div>
-
-      <a href="#contacto" class="hidden lg:inline-flex btn-primary">Hacer pedido</a>
-
-      <!-- Hamburger -->
-      <button onclick="toggleMenu()" class="lg:hidden text-white p-2">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+<!-- ══════════ NAVBAR ══════════ -->
+<div id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <span style="font-size:1.5rem;">🍊</span> Frutanga
+    </a>
+    <nav class="nav-links">
+      <a href="#hero">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#faqs">FAQs</a>
     </nav>
+    <a href="#contacto" class="btn-book">Hacer pedido</a>
+    <button id="hamburger" onclick="toggleNav()">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-nav">
+    <a href="#hero"      onclick="toggleNav()">Inicio</a>
+    <a href="#nosotros"  onclick="toggleNav()">Nosotros</a>
+    <a href="#servicios" onclick="toggleNav()">Servicios</a>
+    <a href="#equipo"    onclick="toggleNav()">Equipo</a>
+    <a href="#faqs"      onclick="toggleNav()">FAQs</a>
+    <a href="#contacto"  onclick="toggleNav()" class="btn-primary" style="text-align:center;">Hacer pedido</a>
+  </div>
+</div>
 
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="flex-col px-5 py-4 gap-4 border-t border-white/10" style="background-color:#16131f">
-      <a href="#inicio"    class="nav-link text-sm" onclick="toggleMenu()">Inicio</a>
-      <a href="#nosotros"  class="nav-link text-sm" onclick="toggleMenu()">Nosotros</a>
-      <a href="#servicios" class="nav-link text-sm" onclick="toggleMenu()">Servicios</a>
-      <a href="#equipo"    class="nav-link text-sm" onclick="toggleMenu()">Equipo</a>
-      <a href="#faqs"      class="nav-link text-sm" onclick="toggleMenu()">FAQs</a>
-      <a href="#contacto"  class="btn-primary text-center text-sm" onclick="toggleMenu()">Hacer pedido</a>
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <!-- Top text content -->
+  <div class="hero-top">
+    <div class="badge-pill">
+      <span class="pulse"></span>
+      Tu comedor de confianza en ESPOL 🍊
     </div>
-  </header>
+    <h1 class="hero-title">
+      El sabor que te<br/>
+      <span>despierta</span><br/>
+      cada mañana
+    </h1>
+    <p class="hero-desc">Bienvenido a Frutanga, tu comedor universitario favorito. Desayunos, sánduches, empanadas, jugos y más — siempre frescos y a buen precio.</p>
+    <div class="hero-btns">
+      <a href="#servicios" class="btn-primary">
+        Ver nuestro menú
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="#nosotros" class="btn-outline-w">Conócenos</a>
+    </div>
+  </div>
 
-  <main>
+  <!-- Image strip — igual que plantilla original -->
+  <div class="hero-strip">
+    <img src="imagen_2026-06-06_172922099.png" alt="Estudiantes en Frutanga" />
+  </div>
+</section>
 
-    <!-- ══════════════════════ HERO ══════════════════════ -->
-    <section id="inicio" class="hero-bg">
-      <div class="hero-overlay">
-        <div class="pt-40 pb-0 flex flex-col justify-between min-h-screen">
-          <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6 text-center">
-            <span class="badge">
-              <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
-              Tu comedor de confianza en ESPOL 🍊
-            </span>
-            <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight max-w-3xl">
-              El sabor que te<br/>
-              <span style="background:linear-gradient(135deg,#a78bfa,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">despierta</span><br/>
-              cada mañana
-            </h1>
-            <p class="text-baseMuted max-w-2xl text-lg">Bienvenido a Frutanga, tu comedor universitario favorito. Desayunos, sánduches, empanadas, jugos y más — siempre frescos y a buen precio.</p>
-            <a href="#servicios" class="btn-primary text-base">
-              Ver nuestro menú
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+<!-- ══════════ NOSOTROS ══════════ -->
+<section id="nosotros" class="section-light">
+  <div class="inner about-wrap">
+    <div class="about-header reveal">
+      <h2 class="section-title">Sobre Frutanga</h2>
+      <p class="section-sub">Somos el comedor universitario que acompaña a los estudiantes de ESPOL cada día. Nuestra misión es ofrecerte comida rica, fresca y accesible para que rindas al máximo.</p>
+      <a href="#contacto" class="btn-primary">
+        Contáctanos
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+
+    <!-- Big image + overlapping stats — igual que plantilla original -->
+    <div class="about-img-wrap reveal">
+      <img src="imagen_2026-06-06_172853209.png" alt="Equipo Frutanga" />
+      <div class="stats-box" style="margin-top:1.5rem;">
+        <div class="stat-item">
+          <span class="stat-icon">🏆</span>
+          <div>
+            <div class="stat-num">+8</div>
+            <div class="stat-label">Años de experiencia</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🍽️</span>
+          <div>
+            <div class="stat-num">+50</div>
+            <div class="stat-label">Opciones en menú</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">⭐</span>
+          <div>
+            <div class="stat-num">+200</div>
+            <div class="stat-label">Reseñas positivas</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">😊</span>
+          <div>
+            <div class="stat-num">+500</div>
+            <div class="stat-label">Clientes felices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SERVICIOS ══════════ -->
+<section id="servicios" class="section-dark">
+  <div class="inner services-wrap">
+    <div class="about-header reveal">
+      <h2 class="section-title">Lo que ofrecemos</h2>
+      <p class="section-sub">Desde el desayuno hasta la merienda, tenemos todo lo que necesitas para mantenerte con energía durante tu jornada universitaria.</p>
+    </div>
+    <div class="card-grid">
+
+      <!-- Card 1 — Desayunos -->
+      <div class="blog-card reveal">
+        <figure><img src="receta-churrasco-delicioso-plato-ecuatoriano-facil-de-hacer.jpg" alt="Desayunos" /></figure>
+        <div class="card-body">
+          <h5 class="card-title">Desayunos</h5>
+          <p class="card-desc">Huevos, panes, frutas y café. El combo perfecto para empezar el día con energía antes de clases.</p>
+          <div class="card-actions">
+            <a href="#contacto" class="btn-primary" style="font-size:.85rem;padding:.6rem 1.2rem;">
+              Pedir ahora
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
-
-          <!-- Hero image strip — igual que la plantilla original -->
-          <div class="mt-16">
-            <img src="estudiantes.png" alt="Estudiantes en Frutanga" class="w-full object-cover" style="max-height:320px;object-position:center top;" />
-          </div>
         </div>
       </div>
-    </section>
 
-    <!-- ══════════════════════ NOSOTROS ══════════════════════ -->
-    <section id="nosotros" style="background-color:#1e1b2e;" class="py-16 sm:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col gap-16">
-          <!-- Header -->
-          <div class="space-y-4 text-center reveal">
-            <h2 class="section-title">Sobre Frutanga</h2>
-            <p class="section-sub max-w-2xl mx-auto">Somos el comedor universitario que acompaña a los estudiantes de ESPOL cada día. Nuestra misión es ofrecerte comida rica, fresca y accesible para que rindas al máximo.</p>
-            <a href="#contacto" class="btn-primary inline-flex">
-              Contáctanos
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      <!-- Card 2 — Sánduches y Empanadas -->
+      <div class="blog-card reveal">
+        <figure><img src="Captura de pantalla 2026-06-06 182508.png" alt="Sanduches y Empanadas" /></figure>
+        <div class="card-body">
+          <h5 class="card-title">Sánduches y Empanadas</h5>
+          <p class="card-desc">Apanado, pollo, jamón y queso. Con pan artesanal y salsas de la casa. Empanadas fritas u horneadas.</p>
+          <div class="card-actions">
+            <a href="#contacto" class="btn-primary" style="font-size:.85rem;padding:.6rem 1.2rem;">
+              Pedir ahora
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
+        </div>
+      </div>
 
-          <!-- Imagen principal + stats — igual que plantilla original -->
-          <div class="relative reveal">
-            <img src="atencion.png" alt="Atención en Frutanga" class="w-full rounded-2xl object-cover" style="max-height:500px;" />
-
-            <!-- Stats superpuestos — igual estructura que la plantilla -->
-            <div class="bg-base100 border border-white/10 rounded-2xl grid gap-8 px-8 py-7 sm:grid-cols-2 lg:grid-cols-4 mt-8 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:w-3/4 lg:translate-y-1/2"
-                 style="background-color:#1e1b2e;">
-              <div class="flex flex-col items-center gap-4 text-center">
-                <span class="text-3xl">🏆</span>
-                <div>
-                  <p class="text-primary text-3xl font-semibold">+8</p>
-                  <p class="text-baseMuted text-sm mt-1">Años de experiencia</p>
-                </div>
-              </div>
-              <div class="flex flex-col items-center gap-4 text-center">
-                <span class="text-3xl">🍽️</span>
-                <div>
-                  <p class="text-primary text-3xl font-semibold">+50</p>
-                  <p class="text-baseMuted text-sm mt-1">Opciones en menú</p>
-                </div>
-              </div>
-              <div class="flex flex-col items-center gap-4 text-center">
-                <span class="text-3xl">⭐</span>
-                <div>
-                  <p class="text-primary text-3xl font-semibold">+200</p>
-                  <p class="text-baseMuted text-sm mt-1">Reseñas positivas</p>
-                </div>
-              </div>
-              <div class="flex flex-col items-center gap-4 text-center">
-                <span class="text-3xl">😊</span>
-                <div>
-                  <p class="text-primary text-3xl font-semibold">+500</p>
-                  <p class="text-baseMuted text-sm mt-1">Clientes felices</p>
-                </div>
-              </div>
-            </div>
+      <!-- Card 3 — Bebidas y Snacks -->
+      <div class="blog-card reveal">
+        <figure><img src="R.jpg" alt="Bebidas y Snacks" /></figure>
+        <div class="card-body">
+          <h5 class="card-title">Bebidas &amp; Snacks</h5>
+          <p class="card-desc">Jugos naturales, submarino, gaseosas, tostadas y snacks. Todo lo que necesitas para recargar energías.</p>
+          <div class="card-actions">
+            <a href="#contacto" class="btn-primary" style="font-size:.85rem;padding:.6rem 1.2rem;">
+              Pedir ahora
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ══════════════════════ SERVICIOS / MENÚ ══════════════════════ -->
-    <section id="servicios" style="background-color:#16131f;" class="py-24 sm:py-32 lg:py-40">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-16 space-y-4 text-center reveal">
-          <h2 class="section-title">Lo que ofrecemos</h2>
-          <p class="section-sub max-w-2xl mx-auto">Desde el desayuno hasta la merienda, tenemos todo lo que necesitas para mantenerte con energía durante tu jornada universitaria.</p>
-        </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Grid de cards igual que plantilla original -->
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-
-          <!-- Card 1 - Desayunos -->
-          <div class="card reveal">
-            <img src="frutanga-local.jpg" alt="Desayunos" class="w-full object-cover" style="height:220px;" />
-            <div class="p-6 flex flex-col gap-3">
-              <h5 class="text-lg font-semibold text-white">Desayunos</h5>
-              <p class="text-baseMuted text-sm leading-relaxed">Huevos, panes, frutas y café. El combo perfecto para empezar el día con energía antes de clases.</p>
-              <a href="#contacto" class="btn-primary text-sm mt-2 self-start">
-                Pedir ahora
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Card 2 - Sánduches -->
-          <div class="card reveal">
-            <img src="submarino.jpg" alt="Sanduches" class="w-full object-cover" style="height:220px;" />
-            <div class="p-6 flex flex-col gap-3">
-              <h5 class="text-lg font-semibold text-white">Sánduches y Empanadas</h5>
-              <p class="text-baseMuted text-sm leading-relaxed">Apanado, pollo, jamón y queso. Con pan artesanal y salsas de la casa. Empanadas fritas u horneadas.</p>
-              <a href="#contacto" class="btn-primary text-sm mt-2 self-start">
-                Pedir ahora
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Card 3 - Bebidas -->
-          <div class="card reveal">
-            <img src="comedor-mesas.jpg" alt="Bebidas y snacks" class="w-full object-cover" style="height:220px;" />
-            <div class="p-6 flex flex-col gap-3">
-              <h5 class="text-lg font-semibold text-white">Bebidas & Snacks</h5>
-              <p class="text-baseMuted text-sm leading-relaxed">Jugos naturales, submarino, gaseosas, tostadas y snacks. Todo lo que necesitas para recargar energías.</p>
-              <a href="#contacto" class="btn-primary text-sm mt-2 self-start">
-                Pedir ahora
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-          </div>
-
+<!-- ══════════ RESEÑAS ══════════ -->
+<div class="section-light">
+  <div class="inner reviews-wrap">
+    <div class="reviews-inner">
+      <div class="reviews-left reveal">
+        <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+        <p style="color:#94a3b8;font-size:.95rem;line-height:1.6;">Estudiantes y trabajadores de ESPOL que nos visitan cada día.</p>
+        <div class="carousel-btns">
+          <button class="cbtn" onclick="prevSlide()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="cbtn active" onclick="nextSlide()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
-    </section>
-
-    <!-- ══════════════════════ RESEÑAS ══════════════════════ -->
-    <div style="background-color:#1e1b2e;" class="py-16 sm:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex gap-12 max-lg:flex-col md:gap-16 lg:items-center lg:gap-24">
-          <div class="space-y-4 lg:w-80 flex-shrink-0 reveal">
-            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
-            <p class="section-sub">Estudiantes y trabajadores de ESPOL que nos visitan cada día.</p>
-            <div class="flex gap-3">
-              <button onclick="prevSlide()" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-primary transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-              </button>
-              <button onclick="nextSlide()" class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white hover:opacity-90 transition-opacity">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </button>
+      <div class="carousel-wrap reveal">
+        <div class="carousel-track" id="carousel">
+          <div class="review-card">
+            <div class="reviewer">
+              <img src="espol1.png" alt="Carlos" />
+              <div><div class="reviewer-name">Carlos Mendoza</div><div class="reviewer-role">Estudiante de Ingeniería</div></div>
             </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"El desayuno de Frutanga es el mejor del campus. El café está perfecto y las empanadas siempre frescas. ¡Voy todos los días!"</p>
           </div>
-
-          <div class="carousel-wrapper flex-1 reveal">
-            <div class="carousel-track" id="carousel">
-              <!-- Reseña 1 -->
-              <div class="card flex-shrink-0 p-6 flex flex-col gap-5" style="min-width:280px;max-width:300px;">
-                <div class="flex items-center gap-3">
-                  <img src="espol1.png" alt="Cliente" class="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <h4 class="text-white font-medium text-sm">Carlos Mendoza</h4>
-                    <p class="text-baseMuted text-xs">Estudiante de Ingeniería</p>
-                  </div>
-                </div>
-                <div class="flex gap-1 text-yellow-400 text-sm">★★★★★</div>
-                <p class="text-baseMuted text-sm leading-relaxed">"El desayuno de Frutanga es el mejor del campus. El café está perfecto y las empanadas siempre frescas. ¡Voy todos los días!"</p>
-              </div>
-              <!-- Reseña 2 -->
-              <div class="card flex-shrink-0 p-6 flex flex-col gap-5" style="min-width:280px;max-width:300px;">
-                <div class="flex items-center gap-3">
-                  <img src="espol2.png" alt="Cliente" class="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <h4 class="text-white font-medium text-sm">Valeria Torres</h4>
-                    <p class="text-baseMuted text-xs">Estudiante de Sistemas</p>
-                  </div>
-                </div>
-                <div class="flex gap-1 text-yellow-400 text-sm">★★★★★</div>
-                <p class="text-baseMuted text-sm leading-relaxed">"Los jugos naturales son increíbles. El de maracuyá es mi favorito. La atención es muy amable y los precios son justos."</p>
-              </div>
-              <!-- Reseña 3 -->
-              <div class="card flex-shrink-0 p-6 flex flex-col gap-5" style="min-width:280px;max-width:300px;">
-                <div class="flex items-center gap-3">
-                  <img src="comedor-exterior.png" alt="Cliente" class="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <h4 class="text-white font-medium text-sm">Andrés Palacios</h4>
-                    <p class="text-baseMuted text-xs">Estudiante de FIEC</p>
-                  </div>
-                </div>
-                <div class="flex gap-1 text-yellow-400 text-sm">★★★★★</div>
-                <p class="text-baseMuted text-sm leading-relaxed">"El submarino de Frutanga es único. El sánduche de pollo apanado es enorme y muy rico. ¡Totalmente recomendado!"</p>
-              </div>
-              <!-- Reseña 4 -->
-              <div class="card flex-shrink-0 p-6 flex flex-col gap-5" style="min-width:280px;max-width:300px;">
-                <div class="flex items-center gap-3">
-                  <img src="atencion.png" alt="Cliente" class="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <h4 class="text-white font-medium text-sm">Lucía Ramos</h4>
-                    <p class="text-baseMuted text-xs">Docente ESPOL</p>
-                  </div>
-                </div>
-                <div class="flex gap-1 text-yellow-400 text-sm">★★★★★</div>
-                <p class="text-baseMuted text-sm leading-relaxed">"El servicio es excepcional. Desde que entras, el equipo te hace sentir bienvenida. Los precios son muy accesibles."</p>
-              </div>
+          <div class="review-card">
+            <div class="reviewer">
+              <img src="espol2.png" alt="Valeria" />
+              <div><div class="reviewer-name">Valeria Torres</div><div class="reviewer-role">Estudiante de Sistemas</div></div>
             </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Los jugos naturales son increíbles. El de maracuyá es mi favorito. La atención es muy amable y los precios son justos."</p>
+          </div>
+          <div class="review-card">
+            <div class="reviewer">
+              <img src="comedor-exterior.png" alt="Andrés" />
+              <div><div class="reviewer-name">Andrés Palacios</div><div class="reviewer-role">Estudiante de FIEC</div></div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"El submarino de Frutanga es único. El sánduche de pollo apanado es enorme y muy rico. ¡Totalmente recomendado!"</p>
+          </div>
+          <div class="review-card">
+            <div class="reviewer">
+              <img src="atencion.png" alt="Lucía" />
+              <div><div class="reviewer-name">Lucía Ramos</div><div class="reviewer-role">Docente ESPOL</div></div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"El servicio es excepcional. Desde que entras, el equipo te hace sentir bienvenida. Los precios son muy accesibles."</p>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- ══════════════════════ CTA ══════════════════════ -->
-    <div style="background-color:#16131f;" class="py-16 sm:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative rounded-3xl overflow-hidden reveal" style="background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(109,40,217,0.15));border:1px solid rgba(124,58,237,0.3);">
-          <div class="p-8 lg:p-16 flex justify-between gap-8 max-md:flex-col items-center">
-            <div class="max-w-lg space-y-4">
-              <h2 class="text-2xl md:text-3xl font-bold text-white">¡Haz tu pedido y sacia tu antojo!</h2>
-              <p class="text-baseMuted">Desde desayunos clásicos hasta jugos naturales, tenemos todo lo que necesitas. Rápido, fresco y a buen precio, justo para ti.</p>
-              <a href="#contacto" class="btn-primary inline-flex">
-                Hacer pedido ahora
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-            <img src="estudiantes.png" alt="Estudiantes Frutanga" class="hidden md:block rounded-2xl object-cover" style="width:320px;height:200px;object-position:center top;" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════ EQUIPO ══════════════════════ -->
-    <section id="equipo" style="background-color:#16131f;" class="py-16 sm:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-16 text-center reveal">
-          <h2 class="section-title mb-4">Nuestro equipo</h2>
-          <p class="section-sub">Las personas detrás de cada plato que te sirven con cariño cada mañana.</p>
-        </div>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-
-          <div class="card hover:border-primary reveal">
-            <div class="overflow-hidden" style="height:200px;background:#1e1b2e;">
-              <img src="atencion.png" alt="Equipo" class="w-full h-full object-cover object-top" />
-            </div>
-            <div class="p-5 flex flex-col gap-3">
-              <h3 class="text-white font-medium">Ana Gómez</h3>
-              <div class="divider"></div>
-              <div>
-                <p class="text-baseMuted text-sm font-medium mb-1">Chef Principal</p>
-                <p class="text-baseMuted text-xs">Preparando desayunos frescos con pasión cada mañana.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card hover:border-primary reveal">
-            <div class="overflow-hidden" style="height:200px;background:#1e1b2e;">
-              <img src="frutanga-local.jpg" alt="Equipo" class="w-full h-full object-cover object-center" />
-            </div>
-            <div class="p-5 flex flex-col gap-3">
-              <h3 class="text-white font-medium">Luis Vera</h3>
-              <div class="divider"></div>
-              <div>
-                <p class="text-baseMuted text-sm font-medium mb-1">Encargado de cocina</p>
-                <p class="text-baseMuted text-xs">Garantizando calidad y rapidez en cada pedido.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card hover:border-primary reveal">
-            <div class="overflow-hidden" style="height:200px;background:#1e1b2e;">
-              <img src="comedor-exterior.png" alt="Equipo" class="w-full h-full object-cover object-center" />
-            </div>
-            <div class="p-5 flex flex-col gap-3">
-              <h3 class="text-white font-medium">María Saltos</h3>
-              <div class="divider"></div>
-              <div>
-                <p class="text-baseMuted text-sm font-medium mb-1">Atención al cliente</p>
-                <p class="text-baseMuted text-xs">Tu sonrisa es nuestra motivación cada día.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card hover:border-primary reveal">
-            <div class="overflow-hidden" style="height:200px;background:#1e1b2e;">
-              <img src="comedor-mesas.jpg" alt="Equipo" class="w-full h-full object-cover object-center" />
-            </div>
-            <div class="p-5 flex flex-col gap-3">
-              <h3 class="text-white font-medium">Jorge Pinto</h3>
-              <div class="divider"></div>
-              <div>
-                <p class="text-baseMuted text-sm font-medium mb-1">Dirección del comedor</p>
-                <p class="text-baseMuted text-xs">Llevando Frutanga al siguiente nivel cada semestre.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════ CONTACTO ══════════════════════ -->
-    <section id="contacto" style="background-color:#1e1b2e;" class="py-16 sm:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-16 text-center reveal">
-          <h2 class="section-title mb-4">¿Tienes un pedido o consulta?</h2>
-          <p class="section-sub">Ya sea para un desayuno especial o una consulta general, estamos aquí para ayudarte.</p>
-        </div>
-        <div class="card p-0 overflow-hidden reveal">
-          <div class="grid gap-8 lg:grid-cols-7 p-8">
-            <!-- Formulario -->
-            <div class="lg:col-span-4">
-              <h2 class="text-2xl font-semibold text-white mb-6">Escríbenos</h2>
-              <form onsubmit="handleSubmit(event)" class="space-y-5">
-                <div class="flex gap-5 max-md:flex-col">
-                  <div class="w-full">
-                    <label class="input-label">Tu nombre</label>
-                    <input type="text" class="input-field" placeholder="Ej: María García" required />
-                  </div>
-                  <div class="w-full">
-                    <label class="input-label">Teléfono / WhatsApp</label>
-                    <input type="tel" class="input-field" placeholder="0999 123 456" required />
-                  </div>
-                </div>
-                <div class="flex gap-5 max-md:flex-col">
-                  <div class="w-full">
-                    <label class="input-label">¿Qué deseas?</label>
-                    <select class="input-field">
-                      <option value="">Selecciona una opción</option>
-                      <option>Desayuno completo</option>
-                      <option>Sánduches</option>
-                      <option>Empanadas</option>
-                      <option>Jugos naturales</option>
-                      <option>Submarino</option>
-                      <option>Tostadas</option>
-                      <option>Snacks y gaseosas</option>
-                      <option>Pedido para llevar</option>
-                      <option>Consulta general</option>
-                    </select>
-                  </div>
-                  <div class="w-full">
-                    <label class="input-label">Horario preferido</label>
-                    <input type="text" class="input-field" placeholder="Ej: 8:00 am" />
-                  </div>
-                </div>
-                <div>
-                  <label class="input-label">Mensaje</label>
-                  <textarea rows="4" class="input-field resize-none" placeholder="Cuéntanos más detalles..."></textarea>
-                </div>
-                <button type="submit" class="btn-primary w-full justify-center">Enviar mensaje</button>
-              </form>
-              <div id="success-msg" class="hidden mt-4 border border-green-500/20 bg-green-500/10 rounded-xl p-4 text-green-400 text-sm text-center">
-                ✅ ¡Mensaje enviado! Te contactaremos pronto por WhatsApp.
-              </div>
-            </div>
-
-            <!-- Info contacto -->
-            <div class="space-y-5 lg:col-span-3">
-              <div class="border border-white/10 rounded-2xl p-6 text-center" style="background-color:#16131f;">
-                <h3 class="text-white font-semibold text-lg mb-3">📞 Contáctanos</h3>
-                <p class="text-baseMuted text-sm">frutanga@espol.edu.ec</p>
-                <p class="text-baseMuted text-sm mt-1">+593 99 123 4567</p>
-              </div>
-              <div class="border border-white/10 rounded-2xl p-6 text-center" style="background-color:#16131f;">
-                <h3 class="text-white font-semibold text-lg mb-3">📍 Ubicación</h3>
-                <p class="text-baseMuted text-sm">Campus ESPOL</p>
-                <p class="text-baseMuted text-sm">Gustavo Galindo Km 30.5</p>
-                <p class="text-baseMuted text-sm">Vía Perimetral, Guayaquil</p>
-              </div>
-              <div class="border border-white/10 rounded-2xl p-6 text-center" style="background-color:#16131f;">
-                <h3 class="text-white font-semibold text-lg mb-2">🕐 Horario</h3>
-                <p class="text-baseMuted text-sm">Lun – Sáb: <span class="text-primary font-medium">8:00 am – 5:00 pm</span></p>
-                <p class="text-baseMuted text-sm mt-1">Domingos: <span class="text-primary font-medium">8:00 am – 1:00 pm</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════ FAQs ══════════════════════ -->
-    <section id="faqs" style="background-color:#16131f;" class="py-16 sm:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-16 text-center reveal">
-          <h2 class="section-title mb-4">Preguntas frecuentes</h2>
-          <p class="section-sub">Todo lo que necesitas saber sobre Frutanga.</p>
-        </div>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 reveal">
-
-          <div class="rounded-2xl p-6 text-center hover:bg-base100 hover:ring-1 hover:ring-primary transition-all" style="border:1px solid rgba(255,255,255,0.08);">
-            <h5 class="text-white font-semibold text-lg mb-3">¿Hacen pedidos para llevar?</h5>
-            <p class="text-baseMuted text-sm leading-relaxed">Sí, todos nuestros productos están disponibles para llevar. Puedes pasar al local o escribirnos por WhatsApp para coordinar tu pedido.</p>
-          </div>
-
-          <div class="rounded-2xl p-6 text-center hover:bg-base100 hover:ring-1 hover:ring-primary transition-all" style="border:1px solid rgba(255,255,255,0.08);">
-            <h5 class="text-white font-semibold text-lg mb-3">¿Cuál es el horario?</h5>
-            <p class="text-baseMuted text-sm leading-relaxed">Atendemos de lunes a sábado de 8:00 am a 5:00 pm y los domingos de 8:00 am a 1:00 pm. En feriados el horario puede variar.</p>
-          </div>
-
-          <div class="rounded-2xl p-6 text-center hover:bg-base100 hover:ring-1 hover:ring-primary transition-all" style="border:1px solid rgba(255,255,255,0.08);">
-            <h5 class="text-white font-semibold text-lg mb-3">¿Los jugos son naturales?</h5>
-            <p class="text-baseMuted text-sm leading-relaxed">Sí, todos nuestros jugos se preparan al momento con frutas frescas, sin preservantes ni colorantes. Naranja, maracuyá, mora y más.</p>
-          </div>
-
-          <div class="rounded-2xl p-6 text-center hover:bg-base100 hover:ring-1 hover:ring-primary transition-all" style="border:1px solid rgba(255,255,255,0.08);">
-            <h5 class="text-white font-semibold text-lg mb-3">¿Aceptan tarjeta?</h5>
-            <p class="text-baseMuted text-sm leading-relaxed">Por el momento aceptamos efectivo y transferencias. Próximamente habilitaremos pagos con tarjeta. Escríbenos para más info.</p>
-          </div>
-
-          <div class="rounded-2xl p-6 text-center hover:bg-base100 hover:ring-1 hover:ring-primary transition-all" style="border:1px solid rgba(255,255,255,0.08);">
-            <h5 class="text-white font-semibold text-lg mb-3">¿Tienen opciones vegetarianas?</h5>
-            <p class="text-baseMuted text-sm leading-relaxed">Sí, contamos con empanadas de queso, tostadas y jugos naturales que son opciones vegetarianas deliciosas y nutritivas.</p>
-          </div>
-
-          <div class="rounded-2xl p-6 text-center hover:bg-base100 hover:ring-1 hover:ring-primary transition-all" style="border:1px solid rgba(255,255,255,0.08);">
-            <h5 class="text-white font-semibold text-lg mb-3">¿Dónde están ubicados?</h5>
-            <p class="text-baseMuted text-sm leading-relaxed">Estamos dentro del campus ESPOL, en la zona de comedores universitarios, cerca de las aulas principales de la facultad.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ══════════════════════ FOOTER ══════════════════════ -->
-  <footer style="background-color:#16131f;border-top:1px solid rgba(255,255,255,0.08);">
-    <div class="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between gap-4 max-md:flex-col">
-        <a href="#inicio" class="flex items-center gap-3 text-xl font-bold text-white">
-          <span class="text-2xl">🍊</span>
-          Frutanga
+<!-- ══════════ CTA ══════════ -->
+<div class="section-dark">
+  <div class="inner cta-wrap">
+    <div class="cta-box reveal">
+      <div class="cta-text">
+        <h2 class="cta-title">¡Haz tu pedido y sacia tu antojo!</h2>
+        <p class="cta-desc">Desde desayunos clásicos hasta jugos naturales, tenemos todo lo que necesitas. Rápido, fresco y a buen precio.</p>
+        <a href="#contacto" class="btn-primary" style="align-self:flex-start;">
+          Hacer pedido ahora
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <nav class="flex items-center gap-6">
-          <a href="#nosotros"  class="nav-link text-sm">Nosotros</a>
-          <a href="#servicios" class="nav-link text-sm">Servicios</a>
-          <a href="#equipo"    class="nav-link text-sm">Equipo</a>
-          <a href="#faqs"      class="nav-link text-sm">FAQs</a>
-        </nav>
-        <div class="flex gap-4 text-white/50">
-          <a href="#" aria-label="Instagram">📸</a>
-          <a href="#" aria-label="Facebook">📘</a>
-          <a href="#" aria-label="WhatsApp">💬</a>
+      </div>
+      <img src="imagen_2026-06-06_172942451.png" alt="Estudiantes" class="cta-img" />
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ CONTACTO ══════════ -->
+<section id="contacto" class="section-light">
+  <div class="inner contact-wrap">
+    <div class="about-header reveal">
+      <h2 class="section-title">Reserva tu mesa o haz tu pedido</h2>
+      <p class="section-sub">Ya sea para un desayuno especial o una consulta general, estamos aquí para ayudarte.</p>
+    </div>
+    <div class="contact-card reveal">
+      <!-- Formulario -->
+      <div>
+        <h2 class="form-title">Escríbenos</h2>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Tu nombre</label>
+              <input type="text" class="form-input" placeholder="Ej: María García" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Teléfono / WhatsApp</label>
+              <input type="tel" class="form-input" placeholder="0999 123 456" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">¿Qué deseas?</label>
+              <select class="form-input">
+                <option value="">Selecciona una opción</option>
+                <option>Desayuno completo</option>
+                <option>Sánduches</option>
+                <option>Empanadas</option>
+                <option>Jugos naturales</option>
+                <option>Submarino</option>
+                <option>Tostadas</option>
+                <option>Snacks y gaseosas</option>
+                <option>Pedido para llevar</option>
+                <option>Consulta general</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Horario preferido</label>
+              <input type="text" class="form-input" placeholder="Ej: 8:00 am" />
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1.25rem;">
+            <label class="form-label">Mensaje</label>
+            <textarea rows="4" class="form-input" style="resize:none;" placeholder="Cuéntanos más detalles..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Enviar mensaje</button>
+        </form>
+        <div id="success-msg" style="display:none;margin-top:1rem;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:.75rem;padding:1rem;color:#4ade80;text-align:center;font-size:.9rem;">
+          ✅ ¡Mensaje enviado! Te contactaremos pronto por WhatsApp.
+        </div>
+      </div>
+      <!-- Info -->
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="info-box">
+          <h3>📞 Contáctanos</h3>
+          <p>frutanga@espol.edu.ec<br/>+593 99 123 4567</p>
+        </div>
+        <div class="info-box">
+          <h3>📍 Ubicación</h3>
+          <p>Campus ESPOL<br/>Gustavo Galindo Km 30.5<br/>Vía Perimetral, Guayaquil</p>
+        </div>
+        <div class="info-box">
+          <h3>🕐 Horario</h3>
+          <p class="hours-text">Lun – Sáb: <span>8:00 am – 5:00 pm</span></p>
         </div>
       </div>
     </div>
-    <div style="height:1px;background:rgba(255,255,255,0.08);"></div>
-    <div class="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8 text-center text-baseMuted text-sm">
-      © 2025 <a href="#inicio" class="text-primary hover:underline">Frutanga</a> · Comedor & Cafetería · Campus ESPOL, Guayaquil ·
-      Distribuido por <a href="https://themewagon.com" target="_blank" class="text-primary hover:underline">ThemeWagon</a>
+  </div>
+</section>
+
+<!-- ══════════ FAQs ══════════ -->
+<section id="faqs" class="section-dark">
+  <div class="inner faqs-wrap">
+    <div class="about-header reveal">
+      <h2 class="section-title">Preguntas frecuentes</h2>
+      <p class="section-sub">Todo lo que necesitas saber sobre Frutanga.</p>
     </div>
-  </footer>
+    <div class="faq-grid reveal">
+      <div class="faq-item">
+        <div class="faq-q">¿Hacen pedidos para llevar?</div>
+        <div class="faq-a">Sí, todos nuestros productos están disponibles para llevar. Pasa al local o escríbenos por WhatsApp para coordinar tu pedido.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Cuál es el horario?</div>
+        <div class="faq-a">Atendemos de lunes a sábado de 8:00 am a 5:00 pm y los domingos de 8:00 am a 1:00 pm. En feriados puede variar.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Los jugos son naturales?</div>
+        <div class="faq-a">Sí, todos los jugos se preparan al momento con frutas frescas, sin preservantes. Naranja, maracuyá, mora, tomate de árbol y más.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Aceptan tarjeta?</div>
+        <div class="faq-a">Por el momento aceptamos efectivo y transferencias. Próximamente habilitaremos pagos con tarjeta. Escríbenos para más info.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Tienen opciones vegetarianas?</div>
+        <div class="faq-a">Sí, contamos con empanadas de queso, tostadas y jugos naturales que son opciones vegetarianas deliciosas y nutritivas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Dónde están ubicados?</div>
+        <div class="faq-a">Estamos dentro del campus ESPOL, en la zona de comedores universitarios, cerca de las aulas principales de la facultad.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // Mobile menu
-    function toggleMenu() {
-      document.getElementById('mobile-menu').classList.toggle('open');
-    }
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-main">
+    <a href="#hero" class="footer-logo">
+      <span style="font-size:1.4rem;">🍊</span> Frutanga
+    </a>
+    <nav class="footer-links">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#faqs">FAQs</a>
+    </nav>
+    <div class="footer-socials">
+      <a href="#" title="Instagram">📸</a>
+      <a href="#" title="Facebook">📘</a>
+      <a href="#" title="WhatsApp">💬</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 <a href="#hero">Frutanga</a> · Comedor &amp; Cafetería · Campus ESPOL, Guayaquil ·
+    Distribuido por <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+  </div>
+</footer>
 
-    // Scroll reveal
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(r => revealObserver.observe(r));
+<script>
+  // Navbar mobile
+  function toggleNav() {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  }
 
-    // Navbar shadow on scroll
-    window.addEventListener('scroll', () => {
-      document.querySelector('header').style.boxShadow = window.scrollY > 20 ? '0 4px 30px rgba(0,0,0,0.5)' : 'none';
-    });
+  // Scroll reveal
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-    // Carousel
-    let slideIndex = 0;
-    const track = document.getElementById('carousel');
-    function getSlideWidth() { return track.children[0] ? track.children[0].offsetWidth + 24 : 304; }
-    function nextSlide() {
-      const max = track.children.length - 2;
-      slideIndex = Math.min(slideIndex + 1, max);
-      track.style.transform = `translateX(-${slideIndex * getSlideWidth()}px)`;
-    }
-    function prevSlide() {
-      slideIndex = Math.max(slideIndex - 1, 0);
-      track.style.transform = `translateX(-${slideIndex * getSlideWidth()}px)`;
-    }
+  // Navbar shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.boxShadow = window.scrollY > 20 ? '0 4px 30px rgba(0,0,0,.5)' : 'none';
+  });
 
-    // Form submit
-    function handleSubmit(e) {
-      e.preventDefault();
-      const msg = document.getElementById('success-msg');
-      msg.classList.remove('hidden');
-      e.target.reset();
-      setTimeout(() => msg.classList.add('hidden'), 5000);
-    }
-  </script>
+  // Carousel
+  let idx = 0;
+  const track = document.getElementById('carousel');
+  function slideWidth() { return track.children[0] ? track.children[0].offsetWidth + 24 : 304; }
+  function nextSlide() { idx = Math.min(idx + 1, track.children.length - 2); track.style.transform = `translateX(-${idx * slideWidth()}px)`; }
+  function prevSlide() { idx = Math.max(idx - 1, 0); track.style.transform = `translateX(-${idx * slideWidth()}px)`; }
+
+  // Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const m = document.getElementById('success-msg');
+    m.style.display = 'block';
+    e.target.reset();
+    setTimeout(() => m.style.display = 'none', 5000);
+  }
+</script>
 </body>
 </html>
