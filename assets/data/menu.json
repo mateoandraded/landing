@@ -1,0 +1,38 @@
+[
+  {
+    "nombre": "Tostada mixta",
+    "descripcion": "Pan tostado con jamón y queso, lista para el desayuno.",
+    "precio": "1.50",
+    "imagen": "assets/img/menu/tostada.jpg"
+  },
+  {
+    "nombre": "Bolón con huevo",
+    "descripcion": "Bolón de verde con chicharrón y huevo frito. Bien lleno.",
+    "precio": "1.75",
+    "imagen": "assets/img/menu/bolon.jpg"
+  },
+  {
+    "nombre": "Empanadas (3 u.)",
+    "descripcion": "Empanadas de viento crocantes, recién fritas para llevar.",
+    "precio": "1.00",
+    "imagen": "assets/img/menu/empanadas.jpg"
+  },
+  {
+    "nombre": "Sándwich submarino",
+    "descripcion": "Pan suave, jamón, queso y vegetales frescos.",
+    "precio": "2.50",
+    "imagen": "assets/img/menu/submarino.jpg"
+  },
+  {
+    "nombre": "Hamburguesa Frutanga",
+    "descripcion": "Carne a la plancha con todos los toppings de la casa.",
+    "precio": "2.50",
+    "imagen": "assets/img/menu/hamburguesa.jpg"
+  },
+  {
+    "nombre": "Batido de fruta",
+    "descripcion": "Batido natural de la fruta que elijas, bien frío.",
+    "precio": "1.75",
+    "imagen": "assets/img/menu/batidos.jpg"
+  }
+]

@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap');
+
+html[data-theme="light"] {
+  --color-base-100: #fffaf3;
+  --color-base-200: #f6e9d6;
+  --color-base-content: #3a2e22;
+  --color-primary: #ef6c1a;
+  --color-primary-content: #ffffff;
+  --color-secondary: #1f9d55;
+  --color-secondary-content: #ffffff;
+  --color-accent: #f4b400;
+}
+
+html[data-theme="dark"] {
+  --color-primary: #f08a3c;
+  --color-primary-content: #1a1a1a;
+  --color-secondary: #22c55e;
+  --color-secondary-content: #ffffff;
+  --color-accent: #f4b400;
+}
+
+body {
+  background-color: var(--color-base-100);
+}
+
+h1,
+h2,
+h3,
+.card-title {
+  font-family: 'Baloo 2', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.nav-link {
+  transition: color 0.2s ease;
+}
+
+img[alt="ESPOL"] {
+  height: 1.75rem;
+  width: auto;
+}
+
+.btn-primary {
+  background-image: none;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-image: none;
+  background-color: #d65b12;
+  border-color: #d65b12;
+  color: #ffffff;
+}
+
+#menu-container .card {
+  border-top: 3px solid var(--color-primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#menu-container .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 22px rgba(239, 108, 26, 0.18);
+}
+
+.frutanga-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.frutanga-strip img {
+  height: 5rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+#menu-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+#menu-container img {
+  height: 7rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 640px) {
+  .frutanga-strip {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+  }
+  .frutanga-strip img {
+    height: 7rem;
+  }
+  #menu-container img {
+    height: 10rem;
+  }
+}
+
+@media (min-width: 768px) {
+  #menu-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+}
+
+h2, h3, h5, .card-title {
+  font-family: 'Crimson Text', serif;
+  font-weight: 600;
+}
+
+body, p, li, label, input, textarea, select {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+}
